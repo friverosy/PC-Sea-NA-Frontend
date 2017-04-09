@@ -1,0 +1,5 @@
+<li class="sidebar-nav-link" [routerLinkActive]="'active'" (click)="click()">
+  <a [routerLink]="[linkTo]">
+    <span class="typcn sidebar-nav-link-logo" [ngClass]="iconClass"></span> {{sectionName}} <span *ngIf="!!badgeValue" class="badge sidebar-nav-link-badge" [ngClass]="badgeClass">{{badgeValue}}</span>
+  </a>
+</li>

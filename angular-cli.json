@@ -1,0 +1,83 @@
+{
+  "project": {
+    "version": "1.0.0",
+    "name": "axxezo-frontend"
+  },
+  "apps": [
+    {
+      "root": "src",
+      "outDir": "dist",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "test": "test.ts",
+      "tsconfig": "tsconfig.json",
+      "prefix": "app",
+      "mobile": false,
+      "styles": [
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/jquery-ui-dist/jquery-ui.min.css",
+        "../node_modules/font-awesome/css/font-awesome.min.css",
+        "../node_modules/typicons.font/src/font/typicons.css",        
+        "../node_modules/icheck/skins/all.css",
+        "../node_modules/fullcalendar/dist/fullcalendar.min.css",
+        "../node_modules/animate.css/animate.min.css",
+        "../node_modules/summernote/dist/summernote.css",
+        "../node_modules/sweetalert2/dist/sweetalert2.min.css",
+        "styles.css"
+      ],
+      "scripts": [
+        "../node_modules/socket.io-client/dist/socket.io.min.js",
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/jquery-ui-dist/jquery-ui.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
+        "../node_modules/bootstrap-notify/bootstrap-notify.min.js",
+        "../node_modules/moment/min/moment.min.js",
+        "../node_modules/peity/jquery.peity.min.js",
+        "../node_modules/icheck/icheck.min.js",
+        "../node_modules/chart.js/dist/Chart.min.js",
+        "../node_modules/fullcalendar/dist/fullcalendar.min.js",
+        "../node_modules/summernote/dist/summernote.min.js",
+        "../node_modules/moment/min/moment-with-locales.min.js",
+        "../node_modules/sweetalert2/dist/sweetalert2.min.js",
+        "../node_modules/file-saver/FileSaver.min.js"        
+      ],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],
+  "addons": [],
+  "packages": [],
+  "e2e": {
+    "protractor": {
+      "config": "./protractor.conf.js"
+    }
+  },
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "css",
+    "prefixInterfaces": false,
+    "inline": {
+      "style": false,
+      "template": false
+    },
+    "spec": {
+      "class": false,
+      "component": true,
+      "directive": true,
+      "module": false,
+      "pipe": true,
+      "service": true
+    }
+  }
+}

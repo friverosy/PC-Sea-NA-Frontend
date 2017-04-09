@@ -1,0 +1,43 @@
+<div class="notifications top-right"></div>
+
+<div class="wrapper">
+  <div class="page-wrapper">
+    <app-top-header [title]="'ControlAccess'"></app-top-header>
+    
+    <app-left-sidebar>
+      
+      <div *ngIf="currentUser.role === 'supervisor'">
+        <li class="sidebar-nav-heading">Administración</li>
+
+        <sidebar-section
+          [linkTo]="'overview'"
+          [sectionName]="'Estadisticas Globales'" 
+          [iconClass]="'typcn-chart-line'">
+        </sidebar-section>
+        
+        <sidebar-section
+          [linkTo]="'peopleManagement'"
+          [sectionName]="'Gestion Personal'" 
+          [iconClass]="'typcn-group-outline'">
+        </sidebar-section>  
+      </div>
+        
+      <li class="sidebar-nav-heading">General</li>    
+      <sidebar-section
+        [linkTo]="'dashboard'"
+        [sectionName]="'Dashboard'" 
+        [iconClass]="'typcn-chart-pie'" 
+        [badgeClass]="'badge-primary'" 
+        [badgeValue]="dashboardBadge"
+        (click)="dashboardSectionClicked()">
+      </sidebar-section>
+      
+    </app-left-sidebar>
+    
+    
+    <div class="content-wrapper">    
+      <router-outlet></router-outlet>
+    </div>
+    
+  </div>
+</div>

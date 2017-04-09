@@ -1,0 +1,10 @@
+<li class="sidebar-nav-link sidebar-nav-link-group" (click)="isOpen = !isOpen" [class.open]="true">
+  <a data-subnav-toggle>
+    <span class="typcn sidebar-nav-link-logo" [ngClass]="iconClass"></span> {{sectionName}}
+    <span class="fa fa-chevron-right subnav-toggle-icon subnav-toggle-icon-closed"></span>
+    <span class="fa fa-chevron-down subnav-toggle-icon subnav-toggle-icon-opened"></span>
+  </a>
+  <ul class="sidebar-nav">
+    <ng-content></ng-content>
+  </ul>
+</li>

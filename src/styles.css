@@ -1,0 +1,6 @@
+@import 'assets/css/varello-theme.min.css';
+@import 'assets/css/varello-skins.min.css';
+
+.swal2-container {
+  z-index: 9999;
+}

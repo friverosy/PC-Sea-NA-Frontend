@@ -1,0 +1,28 @@
+<header class="top-header">
+  <a href="/" class="top-header-logo">
+    <span class="text-primary">{{splittedTitle[0]}}</span>{{splittedTitle[1]}}
+  </a>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-sidebar-toggle" (click)="toggleSidebar()">
+          <span class="typcn typcn-arrow-left visible-sidebar-sm-open"></span>
+          <span class="typcn typcn-arrow-right visible-sidebar-sm-closed"></span>
+          <span class="typcn typcn-arrow-left visible-sidebar-md-open"></span>
+          <span class="typcn typcn-arrow-right visible-sidebar-md-closed"></span>
+        </button>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right" data-dropdown-in="flipInX" data-dropdown-out="zoomOut">
+        <!-- <li class="item-feed dropdown">
+          <a href="index.html#" class="item-feed-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="fa fa-bell"></span> <span class="badge badge-danger item-feed-badge">7</span></a>
+        </li> -->
+
+        <li><a href="javascript:void(0)" (click)="logout()"><span class="fa fa-sign-out"></span> <span class="hidden-sm hidden-xs">Log out</span></a></li>
+      </ul>
+
+    </div>
+  </nav>
+</header>

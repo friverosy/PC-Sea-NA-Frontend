@@ -1,0 +1,29 @@
+<aside class="left-sidebar">
+  <section class="sidebar-user-panel">
+    <div id="user-panel-slide-toggleable">
+
+      <!-- <div class="user-panel-company-logo"><img [src]="'data:image/jpg;base64,'+currentCompany?.logo"></div> -->
+
+      <div class="user-panel-profile-picture"><img src="/assets/images/user-blue.png"></div>
+
+      <span class="user-panel-logged-in-text">
+        <span class="fa fa-circle-o text-success user-panel-status-icon"></span>
+        <strong>{{currentUser.name | async}}</strong>
+      </span>
+
+      <span class="user-panel-logged-in-text">        
+        <span class="fa fa-circle-o text-success user-panel-status-icon"></span>
+        <strong [ngSwitch]="currentUser.role | async">
+          <span class="label btn-transparent label-primary" *ngSwitchCase="'supervisor'">Supervisor</span>
+          <span class="label label-success" *ngSwitchCase="'admin'">Administrador</span>
+          <span class="label label-primary" *ngSwitchCase="'user'">Usuario</span>
+        </strong>
+      </span>
+
+    </div>
+  </section>
+
+  <ul class="sidebar-nav">
+    <ng-content></ng-content>
+  </ul>
+</aside>
