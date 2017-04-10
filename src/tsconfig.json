@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": "",
+    "paths": {
+      "@environments/*": ["./environments/*"],
+      "@app/*": ["./app/*"],
+      "@core/*": ["./app/core/*"]
+    },
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,

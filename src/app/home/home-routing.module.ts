@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent }      from './home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { CanActivateAuthGuard } from '../api/auth/auth-guard.service';
-import { CurrentUserResolve }   from '../api/user/user.providers';
+import { CanActivateAuthGuard } from '@core/auth/auth-guard.service';
+import { CurrentUserResolve }   from '@core/services/user/user.providers';
 
 @NgModule({
   imports: [

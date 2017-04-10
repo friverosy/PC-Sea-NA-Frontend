@@ -8,12 +8,12 @@
 
       <span class="user-panel-logged-in-text">
         <span class="fa fa-circle-o text-success user-panel-status-icon"></span>
-        <strong>{{currentUser.name | async}}</strong>
+        <strong>{{(currentUser | async).name}}</strong>
       </span>
 
       <span class="user-panel-logged-in-text">        
         <span class="fa fa-circle-o text-success user-panel-status-icon"></span>
-        <strong [ngSwitch]="currentUser.role | async">
+        <strong [ngSwitch]="(currentUser | async).role">
           <span class="label btn-transparent label-primary" *ngSwitchCase="'supervisor'">Supervisor</span>
           <span class="label label-success" *ngSwitchCase="'admin'">Administrador</span>
           <span class="label label-primary" *ngSwitchCase="'user'">Usuario</span>

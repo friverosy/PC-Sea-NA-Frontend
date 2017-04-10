@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../api/auth/auth.service';
+import { AuthService } from '../../core/auth/auth.service';
 
 declare var $: any;
 

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { environment } from '@environments/environment';
 
-import { environment } from '../../../environments/environment';
+import { Injectable } from '@angular/core';
+import { AuthService } from '@core/auth/auth.service';
 
 import { Observable } from 'rxjs/Rx';
 

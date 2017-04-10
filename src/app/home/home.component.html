@@ -6,7 +6,7 @@
     
     <app-left-sidebar>
       
-      <div *ngIf="currentUser.role === 'supervisor'">
+      <div *ngIf="(currentUser | async).role === 'admin'">
         <li class="sidebar-nav-heading">Administración</li>
 
         <sidebar-section
@@ -26,10 +26,7 @@
       <sidebar-section
         [linkTo]="'dashboard'"
         [sectionName]="'Dashboard'" 
-        [iconClass]="'typcn-chart-pie'" 
-        [badgeClass]="'badge-primary'" 
-        [badgeValue]="dashboardBadge"
-        (click)="dashboardSectionClicked()">
+        [iconClass]="'typcn-chart-pie'">
       </sidebar-section>
       
     </app-left-sidebar>

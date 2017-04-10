@@ -1,4 +1,4 @@
-import { environment } from '../../../environments/environment';
+import { environment } from '@environments/environment';
 
 import { Injectable, Provider } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,20 +8,17 @@ import { AuthHttp } from 'angular2-jwt';
 
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '@core/auth/auth.service';
 
-import { User }    from './user.model';
-import { Company } from '../company/company.model';
-import { Sector }  from '../sector/sector.model';
+import { User }    from '@core/models/user.model';
 
 //-------------------------------------------------------
 //                      Services
 //-------------------------------------------------------
 
-
 @Injectable()
 export class UserService {  
-  currentUser: BehaviorSubject<User>       = new BehaviorSubject<User>(null);
+  currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   
   constructor(private authHttp: AuthHttp) { }
   

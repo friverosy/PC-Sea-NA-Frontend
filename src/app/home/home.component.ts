@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { User } from '../api/user/user.model';
-import { Sector } from '../api/sector/sector.model';
+import { Observable } from 'rxjs/Rx';
 
-import { UserService } from '../api/user/user.providers';
-import { SocketService } from '../api/socket/socket.service';
+import { User } from '@core/models/user.model';
+
+import { UserService } from '@core/services/user/user.providers';
+import { SocketService } from '@core/services/socket/socket.service';
 
 import * as moment from 'moment';
 import 'moment/min/locales';
@@ -18,12 +19,13 @@ declare var Chart:any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  currentUser: User;
+  currentUser: Observable<User>;
   
   constructor(private route: ActivatedRoute, private userService: UserService, private socketService: SocketService) { }
 
   ngOnInit() {    
-    this.userService.currentUser.subscribe(currentUser => this.currentUser = currentUser);
+    this.currentUser = this.userService.currentUser;
+    // this.userService.currentUser.subscribe(currentUser => this.currentUser = currentUser);
      
     // TODO: hardcoded locale
     moment.locale('es-cl');

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { UserService } from '../../api/user/user.providers';
-import { SocketService } from '../../api/socket/socket.service';
+import { UserService } from '@core/services/user/user.providers';
+import { SocketService } from '@core/services/socket/socket.service';
 
 import * as _ from 'lodash';
 import * as moment from 'moment';

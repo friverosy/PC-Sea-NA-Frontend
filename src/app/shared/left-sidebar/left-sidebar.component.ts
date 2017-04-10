@@ -1,8 +1,8 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 
-import { UserService } from '../../api/user/user.providers';
-import { User } from '../../api/user/user.model';
+import { UserService } from '@core/services/user/user.providers';
+import { User } from '@core/models/user.model';
 
 import * as _ from 'lodash';
 

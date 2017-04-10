@@ -6,23 +6,24 @@ import { HttpModule } from '@angular/http';
 import { Http, RequestOptions } from '@angular/http';
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 
-import { SharedModule } from './shared/shared.module';
-import { HomeModule } from './home/home.module';
+import { SharedModule } from '@app/shared/shared.module';
+import { HomeModule } from '@app/home/home.module';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule } from '@app/app-routing.module';
 
-import { USER_PROVIDERS } from './api/user/user.providers';
-import { COMPANY_PROVIDERS } from './api/company/company.providers';
-import { SECTOR_PROVIDERS } from './api/sector/sector.providers';
-import { REGISTER_PROVIDERS } from './api/register/register.providers';
-import { PERSON_PROVIDERS } from './api/person/person.providers';
+import { USER_PROVIDERS } from '@core/services/user/user.providers';
 
-import { CanActivateAuthGuard } from './api/auth/auth-guard.service';
-import { AuthService } from './api/auth/auth.service';
-import { SocketService } from './api/socket/socket.service';
+import { CanActivateAuthGuard } from '@core/auth/auth-guard.service';
+import { AuthService } from '@core/auth/auth.service';
+import { SocketService } from '@core/services/socket/socket.service';
 
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { AppComponent } from '@app/app.component';
+import { LoginComponent } from '@app/login/login.component';
+
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({}), http, options);
+}
 
 @NgModule({
   declarations: [
@@ -39,18 +40,12 @@ import { LoginComponent } from './login/login.component';
   providers: [
     {
       provide: AuthHttp,
-      useFactory: (http: Http, options: RequestOptions) => {
-        return new AuthHttp(new AuthConfig({}), http, options);
-      },
+      useFactory: authHttpServiceFactory,
       deps: [ Http, RequestOptions ]
     },
     AuthService,
     SocketService,
     USER_PROVIDERS,
-    COMPANY_PROVIDERS,
-    SECTOR_PROVIDERS,
-    REGISTER_PROVIDERS,
-    PERSON_PROVIDERS,
     CanActivateAuthGuard
   ],
   bootstrap: [AppComponent]
