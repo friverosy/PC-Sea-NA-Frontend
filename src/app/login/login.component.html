@@ -8,7 +8,7 @@
         <div class="alert alert-danger" role="alert" *ngIf="serverError"> <strong>Error:</strong> Problema al intentar conectar con el servidor.</div>
         
         <div class="form-group">
-          <input type="text" #username class="form-control input-lg" placeholder="Ingrese su RUT...">
+          <input type="text" #username class="form-control input-lg" placeholder="Ingrese su nombre de usuario...">
         </div>
         
         <div class="form-group">
@@ -16,7 +16,7 @@
         </div>
         
         <div class="form-group">
-          <input type="checkbox" (click)="rememberMeToggle($event)">
+          <input name="remember_me" type="checkbox" (change)="rememberMeToggle($event.target.checked)">
           <label for="remember_me" class="icheck-label">
             Recordarme
           </label>

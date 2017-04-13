@@ -6,27 +6,27 @@
     
     <app-left-sidebar>
       
-      <div *ngIf="(currentUser | async).role === 'admin'">
+      <!-- <div *ngIf="(currentUser | async).role === 'admin'">
         <li class="sidebar-nav-heading">Administración</li>
 
         <sidebar-section
           [linkTo]="'overview'"
-          [sectionName]="'Estadisticas Globales'" 
+          [sectionName]="'Estadisticas Globales'"
           [iconClass]="'typcn-chart-line'">
         </sidebar-section>
-        
+
         <sidebar-section
           [linkTo]="'peopleManagement'"
-          [sectionName]="'Gestion Personal'" 
+          [sectionName]="'Gestion Personal'"
           [iconClass]="'typcn-group-outline'">
-        </sidebar-section>  
-      </div>
+        </sidebar-section>
+      </div> -->
         
       <li class="sidebar-nav-heading">General</li>    
       <sidebar-section
-        [linkTo]="'dashboard'"
-        [sectionName]="'Dashboard'" 
-        [iconClass]="'typcn-chart-pie'">
+        [linkTo]="'registers'"
+        [sectionName]="'Registros'" 
+        [iconClass]="'typcn-business-card'">
       </sidebar-section>
       
     </app-left-sidebar>

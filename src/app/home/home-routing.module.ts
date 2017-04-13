@@ -2,7 +2,7 @@ import { NgModule }     from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { HomeComponent }      from './home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegistersComponent } from './registers/registers.component';
 
 import { CanActivateAuthGuard } from '@core/auth/auth-guard.service';
 import { CurrentUserResolve }   from '@core/services/user/user.providers';
@@ -16,11 +16,11 @@ import { CurrentUserResolve }   from '@core/services/user/user.providers';
       resolve: { currentUser: CurrentUserResolve },
       children: [{
           path: '',
-          redirectTo: 'dashboard',
+          redirectTo: 'registers',
           pathMatch: 'prefix'
         }, {
-          path: 'dashboard',
-          component: DashboardComponent
+          path: 'registers',
+          component: RegistersComponent
         }]
     }])
   ],

@@ -10,7 +10,7 @@
     │   ├── ./src/app/admin                   -  Admin section module (admins will be redirected here after login sucessfully)
     │   │   └── ./src/app/admin/list-users    -  List users component to list and manage platform users
     │   ├── ./src/app/home                    -  Home section module (users and supervisors will be redirected here after login sucessfully)
-    │   │   └── ./src/app/home/dashboard      -  Dashboard component (holds metrtics and plots)
+    │   │   └── ./src/app/home/registers      -  Registers component (holds metrtics and plots)
     │   ├── ./src/app/login                   -  Login component to handle login page
     │   └── ./src/app/shared                  -  Shared module which contains a bunch of components & providers used widely in the application
     │       ├── ./src/app/shared/auth         -  Auth service which contains auth related logic

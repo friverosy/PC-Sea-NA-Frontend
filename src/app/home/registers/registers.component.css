@@ -1,0 +1,11 @@
+.container-fluid {
+  padding: 20px;
+}
+
+:host>>>ng2-smart-table * {
+  font-size: 1.4rem;
+}
+
+:host>>>ng2-smart-table-pager * {
+  font-size: 1.4rem;
+}

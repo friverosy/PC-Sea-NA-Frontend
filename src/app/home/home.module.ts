@@ -7,17 +7,18 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { Ng2DatetimePickerModule } from 'ng2-datetime-picker';
 import { PaginatorModule } from "ngx-paginator";
 import { FileUploadModule } from 'ng2-file-upload';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
 
 import { HomeComponent } from './home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegistersComponent } from './registers/registers.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    DashboardComponent,
+    RegistersComponent,
   ],
   imports: [
     CommonModule,
@@ -30,7 +31,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     Ng2DatetimePickerModule,    
     HomeRoutingModule,
     PaginatorModule,
-    FileUploadModule
+    FileUploadModule,
+    Ng2SmartTableModule
   ],
   exports: [
     HomeComponent

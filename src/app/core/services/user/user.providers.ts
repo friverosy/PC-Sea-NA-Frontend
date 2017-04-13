@@ -55,15 +55,21 @@ export class UserService {
 export class CurrentUserResolve implements Resolve<User> {
   constructor(private router: Router, private authService: AuthService, private userService: UserService) {}
 
-  // before rendering anything, some Subjects are defined: currentUser, currentCompany, currentSector
   resolve(route: ActivatedRouteSnapshot) {
     return this.authService.getProfile()
-                           .do(currentUser => this.userService.setCurrentUser(currentUser))
-                           .catch((response:Response) => {
-                              // TODO: remove redirect from service (create a shared component for error page)
-                              this.router.navigate(['/500']);
-                              return Observable.empty();
-                           });
+      .do(currentUser => this.userService.setCurrentUser(currentUser))
+      .catch((response:Response) => {
+        
+        switch (response.status) {
+          case 401:
+            this.router.navigate(['/login']);
+            break;
+          default:
+            this.router.navigate(['/500']);
+        }
+
+        return Observable.empty();
+      });
   }
 }
 

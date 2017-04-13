@@ -29,9 +29,15 @@ export class AuthService {
                     });
   }
 
+  destroySession() {
+    localStorage.removeItem('id_token')
+    localStorage.removeItem('rememberSession');
+  }
+
   logout(): Promise<any> {  
     return new Promise(resolve => {
-      localStorage.removeItem("id_token");
+      this.destroySession();
+      
       resolve();
     });
   }
@@ -41,7 +47,7 @@ export class AuthService {
   }
 
   getAccessToken() {
-    return localStorage.getItem("id_token");
+    return localStorage.getItem('id_token');
   }
   
 	getProfile(): Observable<User> {
@@ -53,5 +59,13 @@ export class AuthService {
               })
               .share();
  	}
-    
+  
+  setRememberMeState(state: boolean) {
+    localStorage.setItem('rememberSession', JSON.stringify(state));
+  }
+
+  getRememberMeState() {
+    return JSON.parse(localStorage.getItem('rememberSession')) || false;
+  }
+  
 }
