@@ -11,7 +11,9 @@ import { HomeModule } from '@app/home/home.module';
 
 import { AppRoutingModule } from '@app/app-routing.module';
 
-import { USER_PROVIDERS } from '@core/services/user/user.providers';
+import { USER_PROVIDERS }      from '@core/services/user/user.providers';
+import { REGISTER_PROVIDERS }  from '@core/services/register/register.providers';
+import { ITINERARY_PROVIDERS } from '@core/services/itinerary/itinerary.providers';
 
 import { CanActivateAuthGuard } from '@core/auth/auth-guard.service';
 import { AuthService } from '@core/auth/auth.service';
@@ -44,9 +46,11 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
       deps: [ Http, RequestOptions ]
     },
     AuthService,
+    CanActivateAuthGuard,
     SocketService,
-    USER_PROVIDERS,
-    CanActivateAuthGuard
+    REGISTER_PROVIDERS,
+    ITINERARY_PROVIDERS,
+    USER_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })

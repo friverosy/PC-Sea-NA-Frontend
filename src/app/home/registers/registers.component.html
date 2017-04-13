@@ -22,22 +22,16 @@
         <h3 class="panel-title">Filtros</h3>
       </div>
       <div class="panel-body">
-        <div class="col-xs-1">
+        <div class="col-sm-12 col-md-3 col-lg-3">
           <label for="to-datefilter">Fecha:</label>
-        </div>
-        
-        <div class="col-sm-12 col-md-2 col-lg-2">
           <input name="datefilter" class="form-control" [(ngModel)]="datefilter" (ngModelChange)="setDateFilter($event)" date-format="YYYY-MM-DD hh:mm" placeholder="Seleccione fecha" ng2-datetime-picker>
         </div>
         
-        <div class="col-xs-1">
+        <div class="col-sm-12 col-md-4 col-lg-4" *ngIf="datefilter">
           <label>Itinerarios:</label>
-        </div>
-        
-        <div class="col-sm-12 col-md-2 col-lg-3">
-          <select class="form-control" (change)="changeItineraryFilter($event.target.value)" [(ngModel)]="currentItineraryFilter">
-              <option value="all">- Todos los Itinerarios - </option>
-              <!-- <option *ngFor="let profile of humanizedPersonProfiles | mapToIterable" [value]="profile.key">{{profile.val}}</option> -->
+          <select class="form-control" (change)="changeItinerary($event.target.value)" [(ngModel)]="currentItineraryIdFilter">
+              <option value="">- Seleccione itinerario - </option>
+              <option *ngFor="let itinerary of itinerariesForSelectedDate" [value]="itinerary._id">{{ itinerary.name + ' (refId: ' + itinerary.refId + ')'}}</option>
           </select>
         </div>
         
@@ -49,7 +43,7 @@
       <div class="widget widget-statistic widget-success">
         <header class="widget-statistic-header">Total</header>
         <div class="widget-statistic-body">
-          <span class="widget-statistic-value">?</span>
+          <span class="widget-statistic-value">{{ statistics.totalCount }}</span>
           <span class="widget-statistic-description">Toal de personas</span>
           <span class="widget-statistic-icon fa fa-user"></span>
         </div>
@@ -60,7 +54,7 @@
       <div class="widget widget-statistic widget-primary">
         <header class="widget-statistic-header">Embarcados</header>
         <div class="widget-statistic-body">
-          <span class="widget-statistic-value">?</span>
+          <span class="widget-statistic-value">{{ statistics.checkinCount }}</span>
           <span class="widget-statistic-description">Numero de personas embarcadas</span>
           <span class="widget-statistic-icon fa fa-ship"></span>
         </div>
@@ -71,7 +65,7 @@
       <div class="widget widget-statistic widget-info">
         <header class="widget-statistic-header">Desembarcados</header>
         <div class="widget-statistic-body">
-          <span class="widget-statistic-value">?</span>
+          <span class="widget-statistic-value">{{ statistics.checkoutCount }}</span>
           <span class="widget-statistic-description">Numero de personas desembarcadas</span>
           <span class="widget-statistic-icon fa fa-sign-out"></span>
         </div>
@@ -82,7 +76,7 @@
       <div class="widget widget-statistic widget-faded-blue">
         <header class="widget-statistic-header">Compras a bordo</header>
         <div class="widget-statistic-body">
-          <span class="widget-statistic-value">?</span>
+          <span class="widget-statistic-value">{{ statistics.onboardSellsCount }}</span>
           <span class="widget-statistic-description">Cantidad de compras a bordo</span>
           <span class="widget-statistic-icon fa fa-money"></span>
         </div>
@@ -95,34 +89,8 @@
   <!-- row -->  
   <div class="row">
     <div class="col-lg-12">
-      <h4>Listado de Registros</h4>
-        <!-- <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Viaje</th>
-            <th>Ruta</th>
-            <th>Zarpe</th>
-            <th>Total Pasajeros</th>
-            <th>Total Embarcados</th>
-            <th>Pendientes de embarque</th>
-            <th>Ventas a bordo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let register of registers">
-            <td>(refId itinerario)</td>
-            <td>(nombre itinerario)</td>
-            <td>(numero pasajeros)</td>
-            <td># pasajeros</td>
-            <td># embarcados</td>
-            <td># totales - embarcados</td>
-            <td># isOnboard = true</td>
-          </tr>
-        </tbody>
-      </table>  -->
-      
-      <ng2-smart-table [settings]="settings" [source]="registers"></ng2-smart-table>
-      
+      <h4>Listado de Registros</h4>      
+      <ng2-smart-table [settings]="registerTableSettings" [source]="registerTableDataSource"></ng2-smart-table>
     </div>
   </div>
   <!-- end row -->
