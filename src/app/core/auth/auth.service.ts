@@ -22,7 +22,7 @@ export class AuthService {
                       let json = res.json();
 
                       if (!json.fail) {
-                        localStorage.setItem("id_token", json.token);
+                        localStorage.setItem("token", json.token);
                       }
                       
                       return json.token;
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   destroySession() {
-    localStorage.removeItem('id_token')
+    localStorage.removeItem('token')
     localStorage.removeItem('rememberSession');
   }
 
@@ -47,7 +47,7 @@ export class AuthService {
   }
 
   getAccessToken() {
-    return localStorage.getItem('id_token');
+    return localStorage.getItem('token');
   }
   
 	getProfile(): Observable<User> {
