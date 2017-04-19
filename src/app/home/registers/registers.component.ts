@@ -51,14 +51,18 @@ export class RegistersComponent implements OnInit {
       delete: false
     },
     noDataMessage: 'No hay registros en el sistema',
+    filterFunction: this.filterTableCallback,
     columns: {
-      refId: { title: 'Viaje' },
-      itineraryName: { title: 'Ruta' },
-      route: { title: 'Zarpe' },
-      totalPassengersCount: { title: 'Total Pasajeros' },
-      pendingCheckinCount: { title: 'Total Pasajeros' },
-      checkinCount: { title: 'Total Pasajeros' },
-      onboardCount: { title: 'Compras a bordo' }
+      manifestTicketId: { title: 'ID Ticket' },
+      reservationId: { title: 'ID Reserva' },
+      reservationStatus: { title: 'Estado Reserva' },
+      personName: { title: 'Nombre Pasajero' },
+      personNationality: { title: 'Nacionalidad' },
+      personDocumentType: { title: 'Tipo Documento' },
+      personDocumentId: { title: 'ID Documento' },
+      state: { title: 'Estado' },
+      seaportCheckin: { title: 'Puerto Embarque' },
+      seaportCheckout: { title: 'Puerto Desmbarque' }
     }
   };
   
@@ -90,62 +94,37 @@ export class RegistersComponent implements OnInit {
       console.log(`can't reload data due currentItinerary is not set!'`)
       return;
     }
+        
+    this.itineraryService.getRegisters(this.currentItinerary)
+    .subscribe(registers => {
+            
+      let tableData = registers.map(r => {
+        return {
+          manifestTicketId: r.manifest.ticketId,
+          reservationId: r.reservationId,
+          reservationStatus: r.reservationStatus,
+          personName: r.person.name,
+          personNationality: r.person.nationality,
+          personDocumentType: r.person.documentType,
+          personDocumentId: r.person.documentId,
+          state: r.state,
+          seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
+          seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-'
+        }
+      })
     
-    Observable.forkJoin([
-      this.registerService.getRegisters({ itinerary: this.currentItinerary.refId }),
-      this.itineraryService.getItineraryManifests(this.currentItinerary._id),
-      this.registerService.getRegistersStatus({ itinerary: this.currentItinerary.refId })
-    ])
-    .subscribe(data => {
-      let registers       = data[0];
-      let manifests       = data[1];
-      let registersStatus = data[2];
-      
-      console.log(`registers = ${JSON.stringify(registers)}`)
-      console.log(`manifests = ${JSON.stringify(manifests)}`)
-      console.log(`registersStatus = ${JSON.stringify(registersStatus)}`)
-      
-      
-      // TODO:
-      // 1) Listar los atributos que se necesiten en la tabla (de los resultados obtenidos acá (endpoints register + manifests) hay que generar un JSON con los atributos necesarios). 
-      // En teoria por lo señalado en NAV-42, los atributos a mostrar son estos:
-      //      - personId: register.person._id,
-      //      - documentId: register.person.documentId,
-      //      - name: register.person.name,
-      //      - origin: manifest.origin,
-      //      - destination: manifest.destination,
-      //      - refId: manifest.itinerary.refId
-      // Sin embargo no tiene sentido varios de ellos (pej: refId ya que previamente ya seleccionamos un itinerario con refId en particular. Tambien cada entry de la tabla es imposible que tenga un conteo global dado que es un dato atomico). 
-      //En sintesis: Hay que seguir iterando la lista de atributos.
-      
-      
-      // 2) Una vez obtenida la lista con los atributos de interes, calcular estadisticas para llenar los widgets
-
-
-      // 3) Este es un ejemplo dummy de la construccion de la data para la tabla y los widgets:
-      let dummyTableData = [];
-      
-      for (var i = 0; i < 30; i++) {
-        dummyTableData.push({
-          refId: 'este dato no tiene sentido!', 
-          itineraryName: 'este dato no tiene sentido!',
-          route: `ruta dummy ${i}`,
-          totalPassengersCount: 'este dato no tiene sentido!',
-          pendingCheckinCount: 'este dato no tiene sentido!',
-          checkinCount: 'este dato no tiene sentido!',
-          onboardCount: 'este dato no tiene sentido!'
-        })
-      }
- 
-      this.statistics = {
-        totalCount: _.random(1,100),
-        checkinCount: _.random(1,100),
-        checkoutCount: _.random(1,100),
-        onboardSellsCount: _.random(1,100)
-      }
-      
-      this.registerTableDataSource.load(dummyTableData);
+      this.registerTableDataSource.load(tableData);
     });
+    
+  }
+  
+  updateStatistics() {
+    this.statistics = {
+      totalCount: _.random(1,100),
+      checkinCount: _.random(1,100),
+      checkoutCount: _.random(1,100),
+      onboardSellsCount: _.random(1,100)
+    }
   }
   
 }

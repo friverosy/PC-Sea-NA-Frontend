@@ -10,6 +10,7 @@ import { Observable, BehaviorSubject } from 'rxjs/Rx';
 
 import { Itinerary } from '@core/models/itinerary.model';
 import { Manifest }  from '@core/models/manifest.model';
+import { Register }  from '@core/models/register.model';
 import { Seaport }   from '@core/models/seaport.model';
 
 
@@ -29,25 +30,33 @@ export class ItineraryService {
                         .catch(this.handleError);
   }
   
-  getItinerarySeaports(itineraryId: string) {
-    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itineraryId}/seaports`)
-                    .map(res => <Seaport[]> res.json())
-                    .catch(this.handleError);
-  }
-
   
   getItineraryManifests(itineraryId: string) {    
     return this.authHttp.get(`${environment.API_BASEURL}/api/manifests?itinerary=${itineraryId}`)
                     .map(res => <Manifest[]> res.json())
                     .catch(this.handleError);
   }
+
+
+  getRegisters(itinerary: Itinerary) {
+    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/registers`)
+                    .map(res => <Register[]> res.json())
+                    .catch(this.handleError);  
+  }
+
+
+  getSeaports(itinerary: Itinerary) {
+    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/seaports`)
+                    .map(res => <Seaport[]> res.json())
+                    .catch(this.handleError);
+  }
   
-  getItineraryStatistics(itineraryId: string) {
+/*  getItineraryStatistics(itineraryId: string) {
     return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itineraryId}/statistics`)
                     .map(res => res.json())
                     .catch(this.handleError);
   }
-  
+*/  
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');

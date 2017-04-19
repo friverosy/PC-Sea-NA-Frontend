@@ -1,9 +1,9 @@
 import { Serializable } from '@core/utils/serializable';
 
 export class Register extends Serializable {
-  static STATE_CHECKIN  = 'checkin';
-  static STATE_CHECKOUT = 'checkout';
-  static STATE_PENDING  = 'pending';  
+  static readonly STATE_CHECKIN  = 0;
+  static readonly STATE_CHECKOUT = 1;
+  static readonly STATE_PENDING  = 2;  
   
   _id:  string;
   state: string;
