@@ -19,6 +19,13 @@ import * as moment from 'moment';
   styleUrls: ['./registers.component.css']
 })
 export class RegistersComponent implements OnInit {
+  readonly stateHumanizedDict = {
+    'pending': 'Pendiente',
+    'checkin': 'Checkin',
+    'checkout': 'Checkout'
+  }
+  
+  
   // contains the selected date (filter)
   datefilter: any;
   
@@ -37,8 +44,7 @@ export class RegistersComponent implements OnInit {
     onboardSellsCount: 0
   }
   
-  
-  // table attributes
+  // table attributes  
   registerTableDataSource: LocalDataSource;
   registerTableSettings = {
     editable: false,
@@ -51,16 +57,15 @@ export class RegistersComponent implements OnInit {
       delete: false
     },
     noDataMessage: 'No hay registros en el sistema',
-    filterFunction: this.filterTableCallback,
     columns: {
       manifestTicketId: { title: 'ID Ticket' },
       reservationId: { title: 'ID Reserva' },
-      reservationStatus: { title: 'Estado Reserva' },
+      isOnboard: { title: 'Tipo Venta' },
+      state: { title: 'Estado' },
       personName: { title: 'Nombre Pasajero' },
       personNationality: { title: 'Nacionalidad' },
       personDocumentType: { title: 'Tipo Documento' },
       personDocumentId: { title: 'ID Documento' },
-      state: { title: 'Estado' },
       seaportCheckin: { title: 'Puerto Embarque' },
       seaportCheckout: { title: 'Puerto Desmbarque' }
     }
@@ -97,33 +102,39 @@ export class RegistersComponent implements OnInit {
         
     this.itineraryService.getRegisters(this.currentItinerary)
     .subscribe(registers => {
-            
+      
       let tableData = registers.map(r => {
         return {
           manifestTicketId: r.manifest.ticketId,
-          reservationId: r.reservationId,
-          reservationStatus: r.reservationStatus,
+          reservationId: r.manifest.reservationId,
+          isOnboard: r.isOnboard ? 'A bordo' : 'Reserva',
+          state: this.stateHumanizedDict[r.state],
+          
           personName: r.person.name,
           personNationality: r.person.nationality,
           personDocumentType: r.person.documentType,
           personDocumentId: r.person.documentId,
-          state: r.state,
           seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
           seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-'
         }
       })
-    
+      
       this.registerTableDataSource.load(tableData);
+      
+      this.updateStatistics();
     });
     
   }
   
   updateStatistics() {
+    // ugly hack to access private attribute.
+    let tableData = (<any> this.registerTableDataSource).data;
+        
     this.statistics = {
-      totalCount: _.random(1,100),
-      checkinCount: _.random(1,100),
-      checkoutCount: _.random(1,100),
-      onboardSellsCount: _.random(1,100)
+      totalCount: tableData.length,
+      checkinCount: _.filter(tableData, { state: 'checkin' }).length,
+      checkoutCount: _.filter(tableData, { state: 'checkout' }).length,
+      onboardSellsCount: _.filter(tableData, { state: 'A bordo' }).length
     }
   }
   
