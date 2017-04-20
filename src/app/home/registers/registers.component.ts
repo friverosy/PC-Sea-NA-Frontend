@@ -81,7 +81,9 @@ export class RegistersComponent implements OnInit {
   
   ngOnInit() {
     this.socketService.get('register')
-      .subscribe(registers => this.reloadData());      
+      .subscribe(registers => this.reloadData());
+      
+    this.registerTableDataSource.onChanged().subscribe(() => this.updateStatistics())
   }
   
   setDateFilter(date) {
@@ -128,7 +130,7 @@ export class RegistersComponent implements OnInit {
   
   updateStatistics() {
     // ugly hack to access private attribute.
-    let tableData = (<any> this.registerTableDataSource).data;
+    let tableData = (<any> this.registerTableDataSource).filteredAndSorted;
         
     this.statistics = {
       totalCount: tableData.length,
