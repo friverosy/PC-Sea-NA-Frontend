@@ -132,8 +132,8 @@ export class RegistersComponent implements OnInit {
         
     this.statistics = {
       totalCount: tableData.length,
-      checkinCount: _.filter(tableData, { state: 'checkin' }).length,
-      checkoutCount: _.filter(tableData, { state: 'checkout' }).length,
+      checkinCount: _.filter(tableData, { state: 'Checkin' }).length,
+      checkoutCount: _.filter(tableData, { state: 'Checkout' }).length,
       onboardSellsCount: _.filter(tableData, { state: 'A bordo' }).length
     }
   }
