@@ -13,7 +13,7 @@ export class AppComponent {
   @HostListener('window:beforeunload', ['$event'])
   beforeunloadHandler(event) {
     if(!this.authService.getRememberMeState()) { 
-      return this.authService.destroySession(); 
+      return this.authService.destroySession();
     }
   }
 }

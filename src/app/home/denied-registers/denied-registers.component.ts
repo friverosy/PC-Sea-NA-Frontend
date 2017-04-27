@@ -19,10 +19,11 @@ import * as moment from 'moment';
   styleUrls: ['./denied-registers.component.css']
 })
 export class DeniedRegistersComponent implements OnInit {
-  readonly stateHumanizedDict = {
-    'pending': 'Pendiente',
-    'checkin': 'Checkin',
-    'checkout': 'Checkout'
+  readonly deniedReasonDict = {
+    1: 'Puerto de embarque no corresponde',
+    2: 'Puerto de desembarque no corresponde',
+    3: 'Pasajero no se encuentra en el manifiesto',
+    4: 'Viaje no corresponde'
   }
   
   
@@ -103,14 +104,19 @@ export class DeniedRegistersComponent implements OnInit {
     .subscribe(registers => {
       
       let tableData = registers.map(r => {
+        let checkinDate  = moment(r.checkoutDate);
+        let checkoutDate = moment(r.checkinDate);
+        
         return {
           personDocumentId: r.person.documentId,
           personDocumentType: r.person.documentType,
           personName: r.person.name,
           manifestTicketId: r.manifest.ticketId,
-          state: this.stateHumanizedDict[r.state],
-          seaport: r.seaport ? r.seaport.locationName : '-',
-          date: r.date ? moment(r.date).format('YYYY/MM/DD HH:MM') : '-'
+          // TODO: define which port will be used for denied registers...
+          seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
+          seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
+          date: checkoutDate > checkinDate ? checkoutDate.format('YYYY/MM/DD HH:MM') : checkoutDate.format('YYYY/MM/DD HH:MM'),
+          reason: this.deniedReasonDict[r.deniedReason]
         }
       })
       

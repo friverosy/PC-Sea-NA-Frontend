@@ -59,7 +59,19 @@ export class RegistersComponent implements OnInit {
     noDataMessage: 'Sin resultados',
     columns: {
       personDocumentId: { title: 'ID Documento' },
-      personDocumentType: { title: 'Tipo Documento'  },
+      personDocumentType: { 
+        title: 'Tipo Documento', 
+        filter: {
+          type: 'list',
+          config: {
+            selectText: '- Tipo Documento -',
+            list: [
+              { value: 'Cédula de Identidad', title: 'Cédula de Identidad' },
+              { value: 'Pasaporte', title: 'Pasaporte' }
+            ]
+          }
+        }  
+      },
       personName: { title: 'Nombre Pasajero' },
       manifestTicketId: { title: 'ID Ticket' },
       seaportCheckin: { title: 'Origen' },
