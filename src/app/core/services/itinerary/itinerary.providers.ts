@@ -38,8 +38,10 @@ export class ItineraryService {
   }
 
 
-  getRegisters(itinerary: Itinerary) {
-    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/registers`)
+  getRegisters(itinerary: Itinerary, query?: any) {
+    let queryString = Object.keys(query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(query[k])}`).join('&');
+    
+    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/registers${queryString ? `?${queryString}` : ''}`)
                     .map(res => <Register[]> res.json())
                     .catch(this.handleError);  
   }

@@ -22,12 +22,26 @@
         </sidebar-section>
       </div> -->
         
-      <li class="sidebar-nav-heading">General</li>    
-      <sidebar-section
-        [linkTo]="'registers'"
-        [sectionName]="'Registros'" 
-        [iconClass]="'typcn-business-card'">
-      </sidebar-section>
+      <li class="sidebar-nav-heading">General</li>
+      
+      <li class="sidebar-nav-link sidebar-nav-link-group open">
+        <a><span class="typcn typcn-document sidebar-nav-link-logo"></span> Registros</a>
+                
+        <ul class="sidebar-nav">
+          <sidebar-section
+            [linkTo]="'registers'"
+            [sectionName]="'Registros Validos'" 
+            [iconClass]="'typcn-business-card'">
+          </sidebar-section>
+        </ul>
+        <ul class="sidebar-nav">
+          <sidebar-section
+            [linkTo]="'denied-registers'"
+            [sectionName]="'Registros Denegados'" 
+            [iconClass]="'typcn-cancel'">
+          </sidebar-section>
+        </ul>
+      </li>
       
     </app-left-sidebar>
     

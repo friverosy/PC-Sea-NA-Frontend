@@ -1,0 +1,67 @@
+<header class="page-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6 col-lg-8">
+        <h1 class="page-header-heading"><span class="typcn typcn-cancel page-header-heading-icon"></span>Registros Denegados</h1>
+        <p class="page-header-description">Panel de visualización de los registros denegados</p>
+      </div>
+      <div class="col-sm-3 col-lg-4">
+        <img src="/assets/images/image.png" width="150" alt="Axxezo" class="achievement-image">
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid">
+
+  <!-- row -->
+  <div class="row">
+
+    <div class="panel panel-faded-blue">
+      <div class="panel-heading">
+        <h3 class="panel-title">Filtros</h3>
+      </div>
+      <div class="panel-body">
+        <div class="col-sm-12 col-md-3 col-lg-3">
+          <label for="to-datefilter">Fecha:</label>
+          <input name="datefilter" class="form-control" [(ngModel)]="datefilter" (ngModelChange)="setDateFilter($event)" date-format="YYYY-MM-DD hh:mm" placeholder="Seleccione fecha" ng2-datetime-picker>
+        </div>
+        
+        <div class="col-sm-12 col-md-4 col-lg-4" *ngIf="datefilter">
+          <label>Itinerarios:</label>
+          <select class="form-control" (change)="changeItinerary($event.target.value)" [(ngModel)]="currentItineraryIdFilter">
+              <option value="">- Seleccione itinerario - </option>
+              <option *ngFor="let itinerary of itinerariesForSelectedDate" [value]="itinerary._id">{{ itinerary.name + ' (refId: ' + itinerary.refId + ')'}}</option>
+          </select>
+        </div>        
+      </div>
+    </div>
+
+
+    <div class="col-sm-6 col-lg-3">
+      <div class="widget widget-statistic widget-danger">
+        <header class="widget-statistic-header">Accesos Denegados</header>
+        <div class="widget-statistic-body">
+          <span class="widget-statistic-value">{{ statistics.totalCount }}</span>
+          <span class="widget-statistic-description">Numero de registros denegados</span>
+          <span class="widget-statistic-icon fa fa-ban"></span>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
+  <!-- end row -->
+
+  <!-- row -->  
+  <div class="row">
+    <div class="col-lg-12">
+      <h4>Listado de Registros</h4>      
+      <ng2-smart-table [settings]="registerTableSettings" [source]="registerTableDataSource"></ng2-smart-table>
+    </div>
+  </div>
+  <!-- end row -->
+
+
+</div>

@@ -14,11 +14,14 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { HomeComponent } from './home.component';
 import { RegistersComponent } from './registers/registers.component';
+import { DeniedRegistersComponent } from './denied-registers/denied-registers.component';
+
 
 @NgModule({
   declarations: [
     HomeComponent,
     RegistersComponent,
+    DeniedRegistersComponent
   ],
   imports: [
     CommonModule,

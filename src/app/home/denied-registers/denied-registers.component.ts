@@ -14,11 +14,11 @@ import * as _      from 'lodash';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'registers',
-  templateUrl: './registers.component.html',
-  styleUrls: ['./registers.component.css']
+  selector: 'denied-registers',
+  templateUrl: './denied-registers.component.html',
+  styleUrls: ['./denied-registers.component.css']
 })
-export class RegistersComponent implements OnInit {
+export class DeniedRegistersComponent implements OnInit {
   readonly stateHumanizedDict = {
     'pending': 'Pendiente',
     'checkin': 'Checkin',
@@ -62,10 +62,9 @@ export class RegistersComponent implements OnInit {
       personDocumentType: { title: 'Tipo Documento'  },
       personName: { title: 'Nombre Pasajero' },
       manifestTicketId: { title: 'ID Ticket' },
-      seaportCheckin: { title: 'Origen' },
-      seaportCheckout: { title: 'Destino' },
-      checkinDate: { title: 'Fecha Embarque' },
-      checkoutDate: { title: 'Fecha Desembarque' }
+      seaport: { title: 'Puerto' },
+      date: { title: 'Fecha' },
+      reason: { title: 'Motivo' }
     }
   };
   
@@ -100,7 +99,7 @@ export class RegistersComponent implements OnInit {
       return;
     }
         
-    this.itineraryService.getRegisters(this.currentItinerary, { denied: false })
+    this.itineraryService.getRegisters(this.currentItinerary, { denied: true })
     .subscribe(registers => {
       
       let tableData = registers.map(r => {
@@ -110,10 +109,8 @@ export class RegistersComponent implements OnInit {
           personName: r.person.name,
           manifestTicketId: r.manifest.ticketId,
           state: this.stateHumanizedDict[r.state],
-          seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
-          seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
-          checkinDate: r.checkinDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-',
-          checkoutDate: r.checkoutDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-' 
+          seaport: r.seaport ? r.seaport.locationName : '-',
+          date: r.date ? moment(r.date).format('YYYY/MM/DD HH:MM') : '-'
         }
       })
       
