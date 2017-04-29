@@ -74,6 +74,20 @@ export class RegistersComponent implements OnInit {
       },
       personName: { title: 'Nombre Pasajero' },
       manifestTicketId: { title: 'ID Ticket' },
+      state:  { 
+        title: 'Estado', 
+        filter: {
+          type: 'list',
+          config: {
+            selectText: '- Estado -',
+            list: [
+              { value: 'Pendiente', title: 'Pendiente' },
+              { value: 'Checkin', title: 'Checkin' },
+              { value: 'Checkout', title: 'Checkout' }
+            ]
+          }
+        }  
+      },
       seaportCheckin: { title: 'Origen' },
       seaportCheckout: { title: 'Destino' },
       checkinDate: { title: 'Fecha Embarque' },
