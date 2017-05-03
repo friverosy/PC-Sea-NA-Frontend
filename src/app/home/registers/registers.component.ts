@@ -139,7 +139,8 @@ export class RegistersComponent implements OnInit {
           seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
           seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
           checkinDate: r.checkinDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-',
-          checkoutDate: r.checkoutDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-' 
+          checkoutDate: r.checkoutDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-',
+          isOnboard: r.isOnboard
         }
       })
       
@@ -153,12 +154,14 @@ export class RegistersComponent implements OnInit {
   updateStatistics() {
     // ugly hack to access private attribute.
     let tableData = (<any> this.registerTableDataSource).filteredAndSorted;
-        
+    
+    console.log(`tableData = ${JSON.stringify(tableData)}`);
+    
     this.statistics = {
       totalCount: tableData.length,
       checkinCount: _.filter(tableData, { state: 'Checkin' }).length,
       checkoutCount: _.filter(tableData, { state: 'Checkout' }).length,
-      onboardSellsCount: _.filter(tableData, { state: 'A bordo' }).length
+      onboardSellsCount: _.filter(tableData, { isOnboard: true }).length
     }
   }
   
