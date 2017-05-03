@@ -59,21 +59,7 @@ export class RegistersComponent implements OnInit {
     noDataMessage: 'Sin resultados',
     columns: {
       personDocumentId: { title: 'ID Documento' },
-      personDocumentType: { 
-        title: 'Tipo Documento', 
-        filter: {
-          type: 'list',
-          config: {
-            selectText: '- Tipo Documento -',
-            list: [
-              { value: 'Cédula de Identidad', title: 'Cédula de Identidad' },
-              { value: 'Pasaporte', title: 'Pasaporte' }
-            ]
-          }
-        }  
-      },
       personName: { title: 'Nombre Pasajero' },
-      manifestTicketId: { title: 'ID Ticket' },
       state:  { 
         title: 'Estado', 
         filter: {
@@ -89,7 +75,6 @@ export class RegistersComponent implements OnInit {
         }  
       },
       seaportCheckin: { title: 'Origen' },
-      seaportCheckout: { title: 'Destino' },
       checkinDate: { title: 'Fecha Embarque' },
       checkoutDate: { title: 'Fecha Desembarque' }
     }
@@ -132,12 +117,9 @@ export class RegistersComponent implements OnInit {
       let tableData = registers.map(r => {
         return {
           personDocumentId: r.person.documentId,
-          personDocumentType: r.person.documentType,
           personName: r.person.name,
-          manifestTicketId: r.manifest.ticketId,
           state: this.stateHumanizedDict[r.state],
           seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
-          seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
           checkinDate: r.checkinDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-',
           checkoutDate: r.checkoutDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-',
           isOnboard: r.isOnboard
