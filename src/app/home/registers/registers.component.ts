@@ -21,7 +21,7 @@ import * as moment from 'moment';
 export class RegistersComponent implements OnInit {
   readonly stateHumanizedDict = {
     'pending': 'Pendiente',
-    'checkin': 'Checkin',
+    'checkin': 'Embarcado',
     'checkout': 'Checkout'
   }
   
@@ -58,7 +58,7 @@ export class RegistersComponent implements OnInit {
     },
     noDataMessage: 'Sin resultados',
     columns: {
-      personDocumentId: { title: 'ID Documento' },
+      personDocumentId: { title: 'RUT/Pasaporte' },
       personName: { title: 'Nombre Pasajero' },
       state:  { 
         title: 'Estado', 
@@ -68,8 +68,8 @@ export class RegistersComponent implements OnInit {
             selectText: '- Estado -',
             list: [
               { value: 'Pendiente', title: 'Pendiente' },
-              { value: 'Checkin', title: 'Checkin' },
-              { value: 'Checkout', title: 'Checkout' }
+              { value: 'Embarcado', title: 'Embarcado' },
+              { value: 'Desembarcado', title: 'Desembarcado' }
             ]
           }
         }  

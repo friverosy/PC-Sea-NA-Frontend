@@ -1,36 +1,37 @@
 <div class="wrapper">
-  <div class="page-wrapper">
-    <div class="log-in-wrapper">
-      <h1 class="log-in-title"><strong class="text-primary">Access</strong>Control<br></h1>
+    <div class="page-wrapper">
+        <div class="log-in-wrapper">
+            <h1 class="log-in-title">
+                <strong class="text-primary">Passenger</strong>Control
+                <img src="/assets/images/image.png" alt="Axxezo" class="img-responsive center-block">
+            </h1>
 
-      <form role="form" (submit)="login($event, username.value, password.value)">        
-        <div class="alert alert-warning" role="alert" *ngIf="invalidLogin"> <strong>Error autentificación:</strong> Nombre de usuario y/o contraseña invalidos.</div>
-        <div class="alert alert-danger" role="alert" *ngIf="serverError"> <strong>Error:</strong> Problema al intentar conectar con el servidor.</div>
-        
-        <div class="form-group">
-          <input type="text" #username class="form-control input-lg" placeholder="Ingrese su nombre de usuario...">
-        </div>
-        
-        <div class="form-group">
-          <input type="password" #password class="form-control input-lg" id="password" placeholder="ingrese su contraseña..."> 
-        </div>
-        
-        <div class="form-group">
-          <input name="remember_me" type="checkbox" (change)="rememberMeToggle($event.target.checked)">
-          <label for="remember_me" class="icheck-label">
-            Recordarme
-          </label>
-        </div>
-        
-        <button type="submit" class="btn btn-transparent btn-lg btn-transparent-primary btn-block">Entrar</button>
+            <form role="form" (submit)="login($event, username.value, password.value)">
+                <div class="alert alert-warning" role="alert" *ngIf="invalidLogin"> <strong>Error autentificación:</strong> Nombre de usuario y/o contraseña invalidos.</div>
+                <div class="alert alert-danger" role="alert" *ngIf="serverError"> <strong>Error:</strong> Problema al intentar conectar con el servidor.</div>
 
-        <!-- TODO: to be implemented -->
-        <!-- <ul class="login-bottom-links">
+                <div class="form-group">
+                    <input type="text" #username class="form-control input-lg" placeholder="Ingrese su nombre de usuario...">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" #password class="form-control input-lg" id="password" placeholder="ingrese su contraseña...">
+                </div>
+
+                <div class="form-group">
+                    <input name="remember_me" type="checkbox" (change)="rememberMeToggle($event.target.checked)">
+                    <label for="remember_me" class="icheck-label">Recordarme</label>
+                </div>
+
+                <button type="submit" class="btn btn-transparent btn-lg btn-transparent-primary btn-block">Ingresar</button>
+
+                <!-- TODO: to be implemented -->
+                <!-- <ul class="login-bottom-links">
           <li><a href="">Forgot your password?</a></li>
           <li><a href="">Need an account?</a></li>
         </ul> -->
-        
-      </form>
+
+            </form>
+        </div>
     </div>
-  </div>
 </div>
