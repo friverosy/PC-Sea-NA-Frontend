@@ -75,6 +75,7 @@ export class RegistersComponent implements OnInit {
         }  
       },
       seaportCheckin: { title: 'Origen' },
+      seaportCheckout: { title: 'Destino' },
       checkinDate: { title: 'Fecha Embarque' },
       checkoutDate: { title: 'Fecha Desembarque' }
     }
@@ -120,8 +121,9 @@ export class RegistersComponent implements OnInit {
           personName: r.person.name,
           state: this.stateHumanizedDict[r.state],
           seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
-          checkinDate: r.checkinDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-',
-          checkoutDate: r.checkoutDate ? moment(r.checkinDate).format('YYYY/MM/DD HH:MM') : '-',
+          seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
+          checkinDate: r.checkinDate ? moment(r.checkinDate).utc().format('YYYY/MM/DD HH:mm') : '-',
+          checkoutDate: r.checkoutDate ? moment(r.checkoutDate).utc().format('YYYY/MM/DD HH:mm') : '-',
           isOnboard: r.isOnboard
         }
       })
@@ -136,9 +138,7 @@ export class RegistersComponent implements OnInit {
   updateStatistics() {
     // ugly hack to access private attribute.
     let tableData = (<any> this.registerTableDataSource).filteredAndSorted;
-    
-    console.log(`tableData = ${JSON.stringify(tableData)}`);
-    
+
     this.statistics = {
       totalCount: tableData.length,
       checkinCount: _.filter(tableData, { state: 'Checkin' }).length,

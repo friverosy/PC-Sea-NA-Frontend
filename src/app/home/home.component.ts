@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     // this.userService.currentUser.subscribe(currentUser => this.currentUser = currentUser);
      
     // TODO: hardcoded locale
-    moment.locale('es-cl');
+    //moment.locale('es-cl');
 
     Chart.defaults.global.title.fontColor = '#FFFFFF';
     Chart.defaults.global.defaultColor = 'rgba(255, 255, 255, 1)';

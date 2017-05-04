@@ -128,7 +128,7 @@ export class DeniedRegistersComponent implements OnInit {
           // TODO: define which port will be used for denied registers...
           seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
           seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
-          date: checkoutDate > checkinDate ? checkoutDate.format('YYYY/MM/DD HH:MM') : checkoutDate.format('YYYY/MM/DD HH:MM'),
+          date: checkoutDate > checkinDate ? checkoutDate.utc().format('YYYY/MM/DD HH:mm') : checkoutDate.utc().format('YYYY/MM/DD HH:mm'),
           reason: this.deniedReasonDict[r.deniedReason]
         }
       })
