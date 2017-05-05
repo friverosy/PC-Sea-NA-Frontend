@@ -22,7 +22,7 @@ export class RegistersComponent implements OnInit {
   readonly stateHumanizedDict = {
     'pending': 'Pendiente',
     'checkin': 'Embarcado',
-    'checkout': 'Checkout'
+    'checkout': 'Desembarcado'
   }
   
   
@@ -60,6 +60,7 @@ export class RegistersComponent implements OnInit {
     columns: {
       personDocumentId: { title: 'RUT/Pasaporte' },
       personName: { title: 'Nombre Pasajero' },
+      manifestTicketId: { title: 'Boleto' },
       state:  { 
         title: 'Estado', 
         filter: {
@@ -120,6 +121,7 @@ export class RegistersComponent implements OnInit {
           personDocumentId: r.person.documentId,
           personName: r.person.name,
           state: this.stateHumanizedDict[r.state],
+          manifestTicketId: r.manifest.ticketId,
           origin: r.manifest.origin ? r.manifest.origin.locationName : '-',
           destination: r.manifest.destination ? r.manifest.destination.locationName : '-',
           checkinDate: r.checkinDate ? moment(r.checkinDate).utc().format('YYYY/MM/DD HH:mm') : '-',
