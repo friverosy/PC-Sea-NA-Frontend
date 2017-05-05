@@ -74,8 +74,8 @@ export class RegistersComponent implements OnInit {
           }
         }  
       },
-      seaportCheckin: { title: 'Origen' },
-      seaportCheckout: { title: 'Destino' },
+      origin: { title: 'Origen' },
+      destination: { title: 'Destino' },
       checkinDate: { title: 'Fecha Embarque' },
       checkoutDate: { title: 'Fecha Desembarque' }
     }
@@ -120,8 +120,8 @@ export class RegistersComponent implements OnInit {
           personDocumentId: r.person.documentId,
           personName: r.person.name,
           state: this.stateHumanizedDict[r.state],
-          seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
-          seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
+          origin: r.manifest.origin ? r.manifest.origin.locationName : '-',
+          destination: r.manifest.destination ? r.manifest.destination.locationName : '-',
           checkinDate: r.checkinDate ? moment(r.checkinDate).utc().format('YYYY/MM/DD HH:mm') : '-',
           checkoutDate: r.checkoutDate ? moment(r.checkoutDate).utc().format('YYYY/MM/DD HH:mm') : '-',
           isOnboard: r.isOnboard
