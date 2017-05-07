@@ -2,6 +2,10 @@
   padding: 20px;
 }
 
+:host>>>.ng2-datetime-picker .days {
+  width: 230px;
+}
+
 :host>>>ng2-smart-table * {
   font-size: 1.4rem;
 }
