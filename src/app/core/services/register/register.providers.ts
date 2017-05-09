@@ -15,7 +15,9 @@ import { Register } from '@core/models/register.model';
 //-------------------------------------------------------
 
 @Injectable()
-export class RegisterService {  
+export class RegisterService {
+  currentDateFilter: BehaviorSubject<Date> = new BehaviorSubject(null);
+  
   constructor(private authHttp: AuthHttp) { }
     
   getRegisters(query?: any) {
@@ -32,6 +34,10 @@ export class RegisterService {
     return this.authHttp.get(`${environment.API_BASEURL}/api/registers/status${queryString ? `?${queryString}` : ''}`)
       .map(res => <Register[]> res.json())
       .catch(this.handleError);    
+  }
+  
+  setCurrentDateFilter(date: Date) {
+    this.currentDateFilter.next(date);
   }
   
   private handleError(error: Response) {

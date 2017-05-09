@@ -95,11 +95,15 @@ export class RegistersComponent implements OnInit {
       .subscribe(registers => this.reloadData());
       
     this.registerTableDataSource.onChanged().subscribe(() => this.updateStatistics())
+      
+    this.registerService.currentDateFilter
+      .do(date => this.datefilter = date)
+      .flatMap(date => this.itineraryService.getItineraries({ date: date }))
+      .subscribe(itineraries => this.itinerariesForSelectedDate = itineraries);    
   }
   
   setDateFilter(date) {
-    this.itineraryService.getItineraries({ date: date })
-       .subscribe(itineraries => this.itinerariesForSelectedDate = itineraries);
+    this.registerService.setCurrentDateFilter(date);    
   }
  
   changeItinerary(itineraryId){
