@@ -81,9 +81,15 @@ export class DeniedRegistersComponent implements OnInit {
     this.registerTableDataSource.onChanged().subscribe(() => this.updateStatistics())
       
     this.registerService.currentDateFilter
+      .filter(date => !!date)
       .do(date => this.datefilter = date)
       .flatMap(date => this.itineraryService.getItineraries({ date: date }))
       .subscribe(itineraries => this.itinerariesForSelectedDate = itineraries);
+      
+    this.registerService.currentItineraryFilter
+      .filter(itinerary => !!itinerary)
+      .do(itinerary => this.currentItineraryIdFilter = itinerary._id)
+      .subscribe(() => this.reloadData())
   }
   
   setDateFilter(date) {
@@ -91,17 +97,20 @@ export class DeniedRegistersComponent implements OnInit {
   }
  
   changeItinerary(itineraryId){
-    this.currentItinerary = _.find(this.itinerariesForSelectedDate, { _id: itineraryId });
-    this.reloadData();
+    let itinerary = _.find(this.itinerariesForSelectedDate, { _id: itineraryId })
+    
+    this.registerService.currentItineraryFilter.next(itinerary);
   }
   
   private reloadData(){
-    if (!this.currentItinerary) {
+    let currentItinerary = this.registerService.currentItineraryFilter.getValue();
+    
+    if (!currentItinerary) {
       console.log(`can't reload data due currentItinerary is not set!'`)
       return;
     }
         
-    this.itineraryService.getRegisters(this.currentItinerary, { denied: true })
+    this.itineraryService.getRegisters(currentItinerary, { denied: true })
     .subscribe(registers => {
       
       let tableData = registers.map(r => {

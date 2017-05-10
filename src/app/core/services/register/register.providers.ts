@@ -17,6 +17,7 @@ import { Register } from '@core/models/register.model';
 @Injectable()
 export class RegisterService {
   currentDateFilter: BehaviorSubject<Date> = new BehaviorSubject(null);
+  currentItineraryFilter: BehaviorSubject<any> = new BehaviorSubject(null);
   
   constructor(private authHttp: AuthHttp) { }
     

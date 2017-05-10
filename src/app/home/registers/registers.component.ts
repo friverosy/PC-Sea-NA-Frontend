@@ -97,9 +97,15 @@ export class RegistersComponent implements OnInit {
     this.registerTableDataSource.onChanged().subscribe(() => this.updateStatistics())
       
     this.registerService.currentDateFilter
+      .filter(date => !!date)
       .do(date => this.datefilter = date)
       .flatMap(date => this.itineraryService.getItineraries({ date: date }))
       .subscribe(itineraries => this.itinerariesForSelectedDate = itineraries);    
+    
+    this.registerService.currentItineraryFilter
+      .filter(itinerary => !!itinerary)
+      .do(itinerary => this.currentItineraryIdFilter = itinerary._id)
+      .subscribe(() => this.reloadData())
   }
   
   setDateFilter(date) {
@@ -107,17 +113,21 @@ export class RegistersComponent implements OnInit {
   }
  
   changeItinerary(itineraryId){
-    this.currentItinerary = _.find(this.itinerariesForSelectedDate, { _id: itineraryId });
-    this.reloadData();
+    let itinerary = _.find(this.itinerariesForSelectedDate, { _id: itineraryId })
+    
+    this.registerService.currentItineraryFilter.next(itinerary);
   }
   
   private reloadData(){
-    if (!this.currentItinerary) {
+    let currentItinerary = this.registerService.currentItineraryFilter.getValue();
+
+    // TODO: seems to not be necessary now... (remove it when possible)
+    if (!currentItinerary) {
       console.log(`can't reload data due currentItinerary is not set!'`)
       return;
     }
         
-    this.itineraryService.getRegisters(this.currentItinerary, { denied: false })
+    this.itineraryService.getRegisters(currentItinerary, { denied: false })
     .subscribe(registers => {
       
       let tableData = registers.map(r => {
