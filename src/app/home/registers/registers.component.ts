@@ -62,7 +62,10 @@ export class RegistersComponent implements OnInit {
       personName: { title: 'Nombre Pasajero' },
       manifestTicketId: { title: 'Boleto' },
       state:  { 
-        title: 'Estado', 
+        title: 'Estado',
+        filterFunction: (value: string, search: string) => {
+           return search ? value.toString().toLowerCase() === search.toString().toLowerCase() : true;
+        },
         filter: {
           type: 'list',
           config: {
