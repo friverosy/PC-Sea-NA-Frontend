@@ -53,12 +53,6 @@ export class ItineraryService {
                     .catch(this.handleError);
   }
   
-/*  getItineraryStatistics(itineraryId: string) {
-    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itineraryId}/statistics`)
-                    .map(res => res.json())
-                    .catch(this.handleError);
-  }
-*/  
   private handleError(error: Response) {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');

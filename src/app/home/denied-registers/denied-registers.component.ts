@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute }           from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
@@ -26,6 +26,8 @@ export class DeniedRegistersComponent implements OnInit {
     4: 'Viaje no corresponde'
   }
   
+  // mantain tracking of observable subscriptions
+  subscriptions = [];
   
   // contains the selected date (filter)
   datefilter: any;
@@ -75,21 +77,33 @@ export class DeniedRegistersComponent implements OnInit {
   }
   
   ngOnInit() {
-    this.socketService.get('register')
-      .subscribe(registers => this.reloadData());
-      
-    this.registerTableDataSource.onChanged().subscribe(() => this.updateStatistics())
-      
-    this.registerService.currentDateFilter
+    
+    // TODO: Manual subscription lifecycle handling as we are not using async pipe. (refactor this later...)
+    
+    this.subscriptions.push(
+      this.socketService.get('register')
+        .subscribe(registers => this.reloadData())
+    );
+
+    this.subscriptions.push(
+      this.registerTableDataSource.onChanged()
+        .subscribe(() => this.updateStatistics())
+    );
+
+    this.subscriptions.push(
+      this.registerService.currentDateFilter
       .filter(date => !!date)
       .do(date => this.datefilter = date)
       .flatMap(date => this.itineraryService.getItineraries({ date: date }))
-      .subscribe(itineraries => this.itinerariesForSelectedDate = itineraries);
+      .subscribe(itineraries => this.itinerariesForSelectedDate = itineraries)
+    );
       
-    this.registerService.currentItineraryFilter
+    this.subscriptions.push(
+      this.registerService.currentItineraryFilter
       .filter(itinerary => !!itinerary)
       .do(itinerary => this.currentItineraryIdFilter = itinerary._id)
       .subscribe(() => this.reloadData())
+    );
   }
   
   setDateFilter(date) {
@@ -111,26 +125,26 @@ export class DeniedRegistersComponent implements OnInit {
     }
         
     this.itineraryService.getRegisters(currentItinerary, { denied: true })
-    .subscribe(registers => {
+      .subscribe(registers => {
       
-      let tableData = registers.map(r => {
+        let tableData = registers.map(r => {
         
-        let checkinDate  = moment(r.checkinDate);
-        let checkoutDate = moment(r.checkoutDate || 0);
+          let checkinDate  = moment(r.checkinDate);
+          let checkoutDate = moment(r.checkoutDate || 0);
         
-        return {
-          personDocumentId: r.person.documentId,
-          personDocumentType: r.person.documentType,
-          personName: r.person.name,
-          manifestTicketId: r.manifest.ticketId,
-          // TODO: define which port will be used for denied registers...
-          seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
-          seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
-          date: checkoutDate > checkinDate ? checkoutDate.utc().format('YYYY/MM/DD HH:mm') : checkinDate.utc().format('YYYY/MM/DD HH:mm'),
-          reason: this.deniedReasonDict[r.deniedReason]
-        }
-      })
-      
+          return {
+            personDocumentId: r.person.documentId,
+            personDocumentType: r.person.documentType,
+            personName: r.person.name,
+            manifestTicketId: r.manifest.ticketId,
+            // TODO: define which port will be used for denied registers...
+            seaportCheckin: r.seaportCheckin ? r.seaportCheckin.locationName : '-',
+            seaportCheckout: r.seaportCheckout ? r.seaportCheckout.locationName : '-',
+            date: checkoutDate > checkinDate ? checkoutDate.utc().format('YYYY/MM/DD HH:mm') : checkinDate.utc().format('YYYY/MM/DD HH:mm'),
+            reason: this.deniedReasonDict[r.deniedReason]
+          }
+        });
+            
       this.registerTableDataSource.load(tableData);
       
       this.updateStatistics();
@@ -152,6 +166,10 @@ export class DeniedRegistersComponent implements OnInit {
   
   registerQuery(query: any[]) {
     this.registerTableDataSource.setFilter(query, false); 
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.map(s => s.unsubscribe());
   }
   
 }
