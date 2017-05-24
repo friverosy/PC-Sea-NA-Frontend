@@ -23,7 +23,8 @@ export class DeniedRegistersComponent implements OnInit {
     1: 'Puerto de embarque no corresponde',
     2: 'Puerto de desembarque no corresponde',
     3: 'Pasajero no se encuentra en el manifiesto',
-    4: 'Viaje no corresponde'
+    4: 'Viaje no corresponde',
+    5: 'Porfavor configure el manifiesto primero'
   }
   
   // mantain tracking of observable subscriptions
