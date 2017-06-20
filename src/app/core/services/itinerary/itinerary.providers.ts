@@ -2,7 +2,7 @@ import { environment } from '@environments/environment';
 
 import { Injectable, Provider } from '@angular/core';
 import { Router } from '@angular/router';
-import { Response } from '@angular/http';
+import { Response, ResponseContentType } from '@angular/http';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 
@@ -51,6 +51,15 @@ export class ItineraryService {
     return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/seaports`)
                     .map(res => <Seaport[]> res.json())
                     .catch(this.handleError);
+  }
+  
+  exportExcel(itinerary: Itinerary, query?: any) {
+    let queryString = Object.keys(query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(query[k])}`).join('&');
+    
+    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/export`, { responseType: ResponseContentType.Blob })
+                    .map(res => res.blob())
+                    .catch(this.handleError);
+    
   }
   
   private handleError(error: Response) {

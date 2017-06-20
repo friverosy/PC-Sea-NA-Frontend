@@ -9,9 +9,12 @@ import { RegisterService } from '@core/services/register/register.providers';
 import { SocketService }   from '@core/services/socket/socket.service';
 
 import { Register } from '@core/models/register.model';
+import { Itinerary } from '@core/models/itinerary.model';
 
-import * as _      from 'lodash';
-import * as moment from 'moment';
+import * as _         from 'lodash';
+import * as moment    from 'moment';
+import * as fileSaver from 'file-saver';
+
 
 @Component({
   selector: 'registers',
@@ -32,8 +35,8 @@ export class RegistersComponent implements OnInit {
   datefilter: any;
   
   // params for itinerary filter
+  currentItinerary: Itinerary;
   currentItineraryIdFilter: string;
-  currentItinerary: any;
   
   // list of the current itineraries set given the selected date
   itinerariesForSelectedDate: any[] = [];
@@ -118,6 +121,7 @@ export class RegistersComponent implements OnInit {
       this.registerService.currentItineraryFilter
         .filter(itinerary => !!itinerary)
         .do(itinerary => this.currentItineraryIdFilter = itinerary._id)
+        .do(itinerary => this.currentItinerary = itinerary)
         .subscribe(() => this.reloadData())      
     );
     
@@ -134,15 +138,13 @@ export class RegistersComponent implements OnInit {
   }
   
   private reloadData(){
-    let currentItinerary = this.registerService.currentItineraryFilter.getValue();
-
     // TODO: seems to not be necessary now... (remove it when possible)
-    if (!currentItinerary) {
+    if (!this.currentItinerary) {
       console.log(`can't reload data due currentItinerary is not set!'`)
       return;
     }
         
-    this.itineraryService.getRegisters(currentItinerary, { denied: false })
+    this.itineraryService.getRegisters(this.currentItinerary, { denied: false })
       .subscribe(registers => {
       
         let tableData = registers.map(r => {
@@ -180,6 +182,13 @@ export class RegistersComponent implements OnInit {
   
   registerQuery(query: any[]) {
     this.registerTableDataSource.setFilter(query, false); 
+  }
+  
+  exportExcel(query: any = {}) {        
+    this.itineraryService.exportExcel(this.currentItinerary, query)
+      .subscribe(data  => fileSaver.saveAs(data, 'registers-export.xlsx'),
+                 error => console.log("Error downloading the file."),
+                 ()    => console.log('Completed file download.'));
   }
   
   ngOnDestroy() {
