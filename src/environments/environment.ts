@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  API_BASEURL: 'http://axxezo-test.brazilsouth.cloudapp.azure.com:9001',
+  API_BASEURL: 'http://localhost:9001',
 };
