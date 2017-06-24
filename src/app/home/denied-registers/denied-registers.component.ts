@@ -50,6 +50,7 @@ export class DeniedRegistersComponent implements OnInit {
     
   // table attributes  
   registerTableDataSource: LocalDataSource;
+  
   registerTableSettings = {
     editable: false,
     sort: false,
@@ -65,7 +66,20 @@ export class DeniedRegistersComponent implements OnInit {
       personDocumentId: { title: 'RUT/Pasaporte' },
       seaportCheckin: { title: 'Puerto' },
       date: { title: 'Fecha' },
-      reason: { title: 'Motivo' }
+      // reason: { title: 'Motivo' },
+      reason:  { 
+        title: 'Motivo',
+        filterFunction: (value: string, search: string) => {
+           return search ? value.toString().toLowerCase() === search.toString().toLowerCase() : true;
+        },
+        filter: {
+          type: 'list',
+          config: {
+            selectText: '- Motivo -',
+            list: _.values(this.deniedReasonDict).map(x => { return { value: x, title: x } })
+          }
+        }  
+      },
     }
   };
   
