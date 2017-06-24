@@ -125,6 +125,11 @@ export class RegistersComponent implements OnInit {
         .subscribe(() => this.reloadData())      
     );
     
+    this.subscriptions.push(
+      this.socketService.get('register')
+        .debounceTime(3000)
+        .subscribe(() => this.reloadData())
+    );
   }
   
   setDateFilter(date) {

@@ -105,6 +105,12 @@ export class DeniedRegistersComponent implements OnInit {
       .do(itinerary => this.currentItineraryIdFilter = itinerary._id)
       .subscribe(() => this.reloadData())
     );
+    
+    this.subscriptions.push(
+      this.socketService.get('register')
+        .throttleTime(3000)
+        .subscribe(() => this.reloadData())
+    );
   }
   
   setDateFilter(date) {
