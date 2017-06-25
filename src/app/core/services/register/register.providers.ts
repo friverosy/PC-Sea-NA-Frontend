@@ -6,7 +6,7 @@ import { Response } from '@angular/http';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 
-import { Observable, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 
 import { Register } from '@core/models/register.model';
 
@@ -18,6 +18,8 @@ import { Register } from '@core/models/register.model';
 export class RegisterService {
   currentDateFilter: BehaviorSubject<Date> = new BehaviorSubject(null);
   currentItineraryFilter: BehaviorSubject<any> = new BehaviorSubject(null);
+  
+  registerDetailButtonClicked = new Subject();
   
   constructor(private authHttp: AuthHttp) { }
     

@@ -3,6 +3,8 @@ import { ActivatedRoute }           from '@angular/router';
 
 import { Observable } from 'rxjs/Rx';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { Overlay, overlayConfigFactory } from 'angular2-modal';
 
 import { ItineraryService } from '@core/services/itinerary/itinerary.providers';
 import { RegisterService } from '@core/services/register/register.providers';
@@ -15,6 +17,8 @@ import * as _         from 'lodash';
 import * as moment    from 'moment';
 import * as fileSaver from 'file-saver';
 
+import { ViewCellButtonComponent } from './viewcell-button.component';
+import { RegisterDetailModalComponent } from './register-detail-modal/register-detail-modal.component';
 
 @Component({
   selector: 'registers',
@@ -22,6 +26,9 @@ import * as fileSaver from 'file-saver';
   styleUrls: ['./registers.component.css']
 })
 export class RegistersComponent implements OnInit {
+  
+  @Input() viewDetailClicked;
+  
   readonly stateHumanizedDict = {
     'pending': 'Pendiente',
     'checkin': 'Embarcado',
@@ -49,7 +56,9 @@ export class RegistersComponent implements OnInit {
     onboardSellsCount: 0
   }
     
-  // table attributes  
+  // table attributes
+  rawRegisters: Register[];
+  
   registerTableDataSource: LocalDataSource;
   registerTableSettings = {
     editable: false,
@@ -86,11 +95,18 @@ export class RegistersComponent implements OnInit {
       origin: { title: 'Origen' },
       destination: { title: 'Destino' },
       checkinDate: { title: 'Fecha Embarque' },
-      checkoutDate: { title: 'Fecha Desembarque' }
+      checkoutDate: { title: 'Fecha Desembarque' },
+      detailButton: {
+        title: 'Detalle  Registros',
+        type: 'custom',
+        filter: false,
+        renderComponent: ViewCellButtonComponent
+      }
     }
   };
   
   constructor(
+    private modal: Modal,
     private socketService: SocketService, 
     private registerService: RegisterService,
     private itineraryService: ItineraryService
@@ -130,6 +146,25 @@ export class RegistersComponent implements OnInit {
         .debounceTime(3000)
         .subscribe(() => this.reloadData())
     );
+    
+    this.subscriptions.push(
+      this.registerService.registerDetailButtonClicked.subscribe(row => {        
+        // get the raw register associated to the table raw
+        let matchedRegister = {};
+        
+        // TODO (investigation): for some reason lodash.find is not returning what is expected...
+        this.rawRegisters.forEach(function(r) {
+          if (r.person.documentId == row['personDocumentId']) {
+            matchedRegister = r;
+            return false;
+          }
+        })
+        
+        console.log(`matched register: ${matchedRegister}`);
+        
+        this.modal.open(RegisterDetailModalComponent, overlayConfigFactory({ register: matchedRegister }, BSModalContext))
+      })
+    );
   }
   
   setDateFilter(date) {
@@ -151,7 +186,8 @@ export class RegistersComponent implements OnInit {
         
     this.itineraryService.getRegisters(this.currentItinerary, { denied: false })
       .subscribe(registers => {
-      
+        this.rawRegisters = registers;
+          
         let tableData = registers.map(r => {
           return {
             personDocumentId: r.person.documentId,
@@ -162,7 +198,8 @@ export class RegistersComponent implements OnInit {
             destination: r.manifest.destination ? r.manifest.destination.locationName : '-',
             checkinDate: r.checkinDate ? moment(r.checkinDate).utc().format('YYYY/MM/DD HH:mm') : '-',
             checkoutDate: r.checkoutDate ? moment(r.checkoutDate).utc().format('YYYY/MM/DD HH:mm') : '-',
-            isOnboard: r.isOnboard
+            isOnboard: r.isOnboard,
+            detailButton: 'Detalle'
           }
         })
       

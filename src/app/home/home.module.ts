@@ -14,14 +14,17 @@ import { HomeRoutingModule } from './home-routing.module';
 
 import { HomeComponent } from './home.component';
 import { RegistersComponent } from './registers/registers.component';
+import { ViewCellButtonComponent } from './registers/viewcell-button.component';
+import { RegisterDetailModalComponent } from './registers/register-detail-modal/register-detail-modal.component';
 import { DeniedRegistersComponent } from './denied-registers/denied-registers.component';
-
 
 @NgModule({
   declarations: [
     HomeComponent,
     RegistersComponent,
-    DeniedRegistersComponent
+    DeniedRegistersComponent,
+    ViewCellButtonComponent,
+    RegisterDetailModalComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +42,10 @@ import { DeniedRegistersComponent } from './denied-registers/denied-registers.co
   ],
   exports: [
     HomeComponent
+  ],
+  entryComponents: [
+    ViewCellButtonComponent,
+    RegisterDetailModalComponent
   ]
 })
 export class HomeModule { }

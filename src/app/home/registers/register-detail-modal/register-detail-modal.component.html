@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Detalle Registro</div>
+    <div class="panel-body">
+      <div class="form-horizontal">
+        <div class="panel">
+          <div class="panel-body">
+            
+            <form class="form-horizontal">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nombre:</label>
+                <div class="col-sm-9 col-sm-offset-1"><p class="form-control-static">{{ context.register.person.name }}</p></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">RUT:</label>
+                <div class="col-sm-9 col-sm-offset-1"><p class="form-control-static">{{ context.register.person.documentId }}</p></div>
+              </div>
+              <div class="form-group">
+                <!-- <label class="col-sm-2 control-label">Fecha: Nacimiento</label>
+                <div class="col-sm-9 col-sm-offset-1"><p class="form-control-static">(NOT DEFINED IN API)</p></div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Edad:</label>
+                <div class="col-sm-9 col-sm-offset-1"><p class="form-control-static">(NOT DEFINED IN API)</p></div>
+              </div> -->
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Sexo:</label>
+                <div class="col-sm-9 col-sm-offset-1">
+                  <p class="form-control-static" *ngIf="context.register.person.sex == 'M'">Masculino</p>
+                  <p class="form-control-static" *ngIf="context.register.person.sex == 'F'">Femenino</p>
+                </div>
+              </div>
+              <!-- <div class="form-group">
+                <label class="col-sm-2 control-label">Residencia:</label>
+                <div class="col-sm-9 col-sm-offset-1"><p class="form-control-static">(NOT DEFINED IN API)</p></div>
+              </div> -->
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nacionalidad:</label>
+                <div class="col-sm-9 col-sm-offset-1"><p class="form-control-static">{{ context.register.person.nationality }}</p></div>
+              </div>
+            </form>
+            
+        </div>
+        
+        <div class="panel-footer text-right">
+          <button (click)="closeModal()" class="btn btn-transparent"><span class="fa fa-arrow-left"></span> Cancelar</button>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+</div>

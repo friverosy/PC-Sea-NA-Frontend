@@ -39,7 +39,7 @@
     "ng2-charts": "^1.4.4",
     "ng2-datetime-picker": "0.15.1",
     "ng2-file-upload": "^1.2.0",
-    "ng2-smart-table": "^1.0.3",
+    "ng2-smart-table": "^1.2.1",
     "ngx-paginator": "0.0.14",
     "peity": "^3.2.1",
     "rxjs": "5.3.0",
