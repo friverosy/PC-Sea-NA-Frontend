@@ -18,7 +18,7 @@ import * as moment    from 'moment';
 import * as fileSaver from 'file-saver';
 
 import { ViewCellButtonComponent } from './viewcell-button.component';
-import { RegisterDetailModalComponent } from './register-detail-modal/register-detail-modal.component';
+import { RegisterDetailModalComponent, RegisterDetailModalContext } from './register-detail-modal/register-detail-modal.component';
 
 @Component({
   selector: 'registers',
