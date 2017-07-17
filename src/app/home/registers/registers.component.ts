@@ -32,7 +32,8 @@ export class RegistersComponent implements OnInit {
   readonly stateHumanizedDict = {
     'pending': 'Pendiente',
     'checkin': 'Embarcado',
-    'checkout': 'Desembarcado'
+    'checkout': 'Desembarcado',
+    'onboard': 'Compra a bordo'
   }
   
   // mantain tracking of observable subscriptions
@@ -75,6 +76,22 @@ export class RegistersComponent implements OnInit {
       personDocumentId: { title: 'RUT/Pasaporte' },
       personName: { title: 'Nombre Pasajero' },
       manifestTicketId: { title: 'Boleto' },
+      sellType: { 
+        title: 'Tipo Compra',
+        filterFunction: (value: string, search: string) => {
+           return search ? value.toString().toLowerCase() === search.toString().toLowerCase() : true;
+        },
+        filter: {
+          type: 'list',
+          config: {
+            selectText: '- Tipo -',
+            list: [
+              { value: 'Compra online', title: 'Compra online' },
+              { value: 'Compra a bordo', title: 'Compra a bordo' }
+            ]
+          }
+        }
+      }, 
       state:  { 
         title: 'Estado',
         filterFunction: (value: string, search: string) => {
@@ -199,7 +216,8 @@ export class RegistersComponent implements OnInit {
             checkinDate: r.checkinDate ? moment(r.checkinDate).utc().format('YYYY/MM/DD HH:mm') : '-',
             checkoutDate: r.checkoutDate ? moment(r.checkoutDate).utc().format('YYYY/MM/DD HH:mm') : '-',
             isOnboard: r.isOnboard,
-            detailButton: 'Detalle'
+            detailButton: 'Detalle',
+            sellType: r.isOnboard ? 'Compra a bordo' : 'Compra online'
           }
         })
       
