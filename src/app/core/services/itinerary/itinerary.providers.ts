@@ -56,7 +56,7 @@ export class ItineraryService {
   exportExcel(itinerary: Itinerary, query?: any) {
     let queryString = Object.keys(query).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(query[k])}`).join('&');
     
-    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/export`, { responseType: ResponseContentType.Blob })
+    return this.authHttp.get(`${environment.API_BASEURL}/api/itineraries/${itinerary._id}/export${queryString ? `?${queryString}` : ''}`, { responseType: ResponseContentType.Blob })
                     .map(res => res.blob())
                     .catch(this.handleError);
     
