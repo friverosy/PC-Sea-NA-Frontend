@@ -8,6 +8,8 @@ export class Person extends Serializable {
   nationality: string;
   documentType: string;
   documentId: string;
+  age: Date;
+  birthdate: string;
       
   constructor() {
     super();  

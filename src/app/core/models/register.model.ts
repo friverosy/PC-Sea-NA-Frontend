@@ -1,5 +1,7 @@
 import { Serializable } from '@core/utils/serializable';
 
+import { Person } from './person.model';
+
 export class Register extends Serializable {
   static readonly STATE_CHECKIN  = 0;
   static readonly STATE_CHECKOUT = 1;
@@ -10,7 +12,7 @@ export class Register extends Serializable {
   isOnboard: boolean;
   isDenied: boolean;
   
-  person: any;
+  person: Person;
   manifest: any;
   seaportCheckin: any;
   seaportCheckout: any;
