@@ -66,7 +66,6 @@ export class DeniedRegistersComponent implements OnInit {
       personDocumentId: { title: 'RUT/Pasaporte' },
       seaportCheckin: { title: 'Puerto' },
       date: { title: 'Fecha' },
-      // reason: { title: 'Motivo' },
       reason:  { 
         title: 'Motivo',
         filterFunction: (value: string, search: string) => {

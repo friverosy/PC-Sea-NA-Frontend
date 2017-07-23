@@ -16,8 +16,6 @@ export class ViewCellButtonComponent implements ViewCell, OnInit {
   @Input() value: string | number;
   @Input() rowData: any;
 
-  @Output() clicked: EventEmitter<any> = new EventEmitter();
-
   constructor(private registerService: RegisterService) { }
 
   ngOnInit() {
@@ -26,6 +24,5 @@ export class ViewCellButtonComponent implements ViewCell, OnInit {
 
   onClick() {
     this.registerService.registerDetailButtonClicked.next(this.rowData);
-    // this.clicked.emit(this.rowData);
   }
 }

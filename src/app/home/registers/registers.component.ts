@@ -176,9 +176,7 @@ export class RegistersComponent implements OnInit {
             return false;
           }
         })
-        
-        console.log(`matched register: ${matchedRegister}`);
-        
+                
         this.modal.open(RegisterDetailModalComponent, overlayConfigFactory({ register: matchedRegister }, BSModalContext))
       })
     );
