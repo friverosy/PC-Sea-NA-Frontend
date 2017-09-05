@@ -1,27 +1,4 @@
-# Universal Web Platform
-
-
-## Structure
-
-```
-├── ./e2e                                     - end to end tests
-└── ./src
-    ├── ./src/app                             -  Application root module
-    │   ├── ./src/app/admin                   -  Admin section module (admins will be redirected here after login sucessfully)
-    │   │   └── ./src/app/admin/list-users    -  List users component to list and manage platform users
-    │   ├── ./src/app/home                    -  Home section module (users and supervisors will be redirected here after login sucessfully)
-    │   │   └── ./src/app/home/registers      -  Registers component (holds metrtics and plots)
-    │   ├── ./src/app/login                   -  Login component to handle login page
-    │   └── ./src/app/shared                  -  Shared module which contains a bunch of components & providers used widely in the application
-    │       ├── ./src/app/shared/auth         -  Auth service which contains auth related logic
-    │       ├── ./src/app/shared/left-sidebar -  Application left-side component 
-    │       ├── ./src/app/shared/socket       -  Socket service for socket.io handling
-    │       ├── ./src/app/shared/top-header   -  Application top-header component 
-    │       ├── ./src/app/shared/user         -  User service (User API mapping)
-    │       └── ./src/app/shared/utils        -  Several utilities
-    ├── ./src/assets                          -  App assets not mantained by NPM
-    └── ./src/environments                    -  Environment related configurations (i.e: API_URL) 
-```
+# Passenger Control
 
 ## Getting Started
 
